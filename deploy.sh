@@ -1,7 +1,9 @@
-yarn build && yarn generate
+yarn lint
+yarn build
+yarn generate
 
 cd ../website-static
-rm -rf _nuxt/ *.html
+rm -rf *.* */
 cp -rf ../website/dist/* .
 
 git add .
