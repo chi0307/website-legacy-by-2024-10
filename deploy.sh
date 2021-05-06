@@ -1,3 +1,4 @@
+yarn
 yarn lint
 yarn build
 yarn generate
