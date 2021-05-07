@@ -20,19 +20,21 @@
         </div>
       </div>
       <div class="description-block">
-        <h1 class="description-title">
-          Hello
-        </h1>
-        <p class="description-content">
-          This is my personal website.
-        </p>
-        <div class="description-link">
-          <button class="resume-button" @click="$router.replace({ path: '/resume' })">
-            RESUME
-          </button>
-          <button class="projects-button" @click="$router.replace({ path: '/projects' })">
-            PROJECTS
-          </button>
+        <div class="description-inblock">
+          <h1 class="description-title">
+            Hello
+          </h1>
+          <p class="description-content">
+            This is my personal website.
+          </p>
+          <div class="description-link">
+            <button class="resume-button" @click="$router.replace({ path: '/resume' })">
+              RESUME
+            </button>
+            <button class="projects-button" @click="$router.replace({ path: '/projects' })">
+              PROJECTS
+            </button>
+          </div>
         </div>
       </div>
     </div>

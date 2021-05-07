@@ -95,45 +95,47 @@
     .description-block {
       flex: 1;
 
-      height: calc(#{$about-me-message-block-height} * 0.9);
-      padding: calc(#{$about-me-message-block-height} * 0.1);
-      display: flex;
-      text-align: left;
-      flex-direction: column;
-
-      .description-title {
-        flex: 1;
-        font-size: 3em;
-        margin: 0;
-        line-height: calc(#{$about-me-message-block-height} * 0.8 / 5);
-      }
-
-      .description-content {
-        flex: 2;
-        margin: 0;
-      }
-
-      .description-link {
-        flex: 2;
+      .description-inblock {
+        height: calc(#{$about-me-message-block-height} * 0.8);
+        padding: calc(#{$about-me-message-block-height} * 0.1);
         display: flex;
-        justify-content: center;
-        align-items: center;
+        text-align: left;
+        flex-direction: column;
 
-        button {
+        .description-title {
           flex: 1;
-          height: 40px;
-          width: 100px;
-          margin: 20px;
-          background-color: $white-color;
-          border-color: $black-color;
-          border-width: 1px;
-          border-radius: 40px;
-          cursor: pointer;
+          font-size: 3em;
+          margin: 0;
+          line-height: calc(#{$about-me-message-block-height} * 0.8 / 5);
+        }
 
-          &:hover {
-            background-color: $complementary-color1;
-            border-width: 0px;
-            color: $white-color;
+        .description-content {
+          flex: 2;
+          margin: 0;
+        }
+
+        .description-link {
+          flex: 2;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+          button {
+            flex: 1;
+            height: 40px;
+            width: 100px;
+            margin: 8px;
+            background-color: $white-color;
+            border-color: $black-color;
+            border-width: 1px;
+            border-radius: 40px;
+            cursor: pointer;
+
+            &:hover {
+              background-color: $complementary-color1;
+              border-width: 0px;
+              color: $white-color;
+            }
           }
         }
       }
