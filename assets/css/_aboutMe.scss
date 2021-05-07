@@ -1,0 +1,142 @@
+.about-me-page {
+  justify-content: center;
+  position: relative;
+  height: $about-me-page-height;
+
+  .right-block {
+    background-color: $white-color;
+    position: absolute;
+    width: 66%;
+    height: $about-me-page-height;
+    right: 0;
+  }
+
+  .message-block {
+    height: $about-me-message-block-height;
+    width: $about-me-message-block-width;
+    position: absolute;
+    top: $about-me-message-top;
+    left: calc(50% - #{$about-me-message-block-width}/ 2);
+    display: flex;
+
+    .present-block {
+      flex: 1;
+      background-color: $primary-color2;
+      box-shadow: -10px 10px 18px 0 rgba(0, 0, 0, 0.2);
+      display: flex;
+      flex-direction: column;
+
+      .present-top-block {
+        flex: 9;
+        position: relative;
+
+        .about-me-image {
+          top: 80px;
+          max-width: 200px;
+          max-height: 200px;
+          margin: auto;
+          position: absolute;
+          left: calc(50% - 100px);
+        }
+
+        .about-me-name {
+          top: 340px;
+          left: calc(50% - 100px);
+          width: 200px;
+          position: absolute;
+          text-align: center;
+
+          h1 {
+            margin: 0;
+          }
+        }
+
+        .about-me-line {
+          position: absolute;
+          top: 420px;
+          left: calc(50% - 30px);
+          width: 60px;
+          border-bottom: $complementary-color1 solid 3px;
+          border-radius: 3px;
+        }
+
+        .about-me-title {
+          position: absolute;
+          top: 470px;
+          left: calc(50% - 150px);
+          width: 300px;
+          text-align: center;
+
+          h3 {
+            margin: 0;
+          }
+        }
+      }
+
+      .present-bottom-block {
+        background-color: $white-color;
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        a {
+          margin: 0 5%;
+
+          * {
+            width: 30px;
+            height: 30px;
+            color: $black-color;
+          }
+        }
+      }
+    }
+
+    .description-block {
+      flex: 1;
+
+      height: calc(#{$about-me-message-block-height} * 0.9);
+      padding: calc(#{$about-me-message-block-height} * 0.1);
+      display: flex;
+      text-align: left;
+      flex-direction: column;
+
+      .description-title {
+        flex: 1;
+        font-size: 3em;
+        margin: 0;
+        line-height: calc(#{$about-me-message-block-height} * 0.8 / 5);
+      }
+
+      .description-content {
+        flex: 2;
+        margin: 0;
+      }
+
+      .description-link {
+        flex: 2;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        button {
+          flex: 1;
+          height: 40px;
+          width: 100px;
+          margin: 20px;
+          background-color: $white-color;
+          border-color: $black-color;
+          border-width: 1px;
+          border-radius: 40px;
+          cursor: pointer;
+
+          &:hover {
+            background-color: $complementary-color1;
+            border-width: 0px;
+            color: $white-color;
+          }
+        }
+      }
+    }
+  }
+}

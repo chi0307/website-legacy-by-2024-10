@@ -1,5 +1,5 @@
 <template>
-  <div />
+  <div class="index-page" />
 </template>
 <script>
 export default {

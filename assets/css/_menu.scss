@@ -1,0 +1,58 @@
+.menu {
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 100%;
+  height: $menu-height;
+  background-color: $white-color;
+  z-index: 10;
+
+  .menu-inbox {
+    margin: 0 auto;
+    display: flex;
+    height: $menu-height;
+    top: 0;
+    max-width: $max-web-width;
+    justify-content: space-between;
+
+    .title-block {
+      position: relative;
+      flex: 1;
+      margin: 0;
+
+      .title {
+        line-height: $menu-height;
+        margin: 0;
+        text-align: left;
+      }
+    }
+
+    .menu-block {
+      position: relative;
+      flex: 3;
+      margin: 0;
+
+      ul {
+        margin: 0;
+        float: right;
+        max-height: $menu-height;
+
+        .menu-item {
+          list-style: none;
+          float: left;
+          line-height: $menu-height;
+          margin: 0 10px;
+
+          a {
+            text-decoration: none;
+            color: unset;
+          }
+        }
+
+        .menu-click {
+          color: $complementary-color1;
+        }
+      }
+    }
+  }
+}

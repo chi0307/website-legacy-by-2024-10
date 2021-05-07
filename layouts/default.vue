@@ -1,26 +1,28 @@
 <template>
   <div class="container">
     <div class="menu">
-      <div class="menu-block">
-        <h2 class="title">
-          Website
-        </h2>
-      </div>
-      <div class="menu-block">
-        <ul>
-          <li
-            v-for="(page, index) in pages"
-            :key="index"
-            :class="{ 'menu-item': true, 'menu-click': $route.name === page.path }"
-          >
-            <router-link :to="page.path">
-              {{ page.name }}
-            </router-link>
-          </li>
-        </ul>
+      <div class="menu-inbox">
+        <div class="title-block">
+          <h2 class="title">
+            Website
+          </h2>
+        </div>
+        <div class="menu-block">
+          <ul>
+            <li
+              v-for="(page, index) in pages"
+              :key="index"
+              :class="{ 'menu-item': true, 'menu-click': $route.name === page.path }"
+            >
+              <router-link :to="page.path">
+                {{ page.name }}
+              </router-link>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
-    <Nuxt />
+    <Nuxt class="content" />
   </div>
 </template>
 
