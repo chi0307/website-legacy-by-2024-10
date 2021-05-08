@@ -1,0 +1,55 @@
+.resume-page {
+  padding-top: 50px;
+  padding-bottom: 50px;
+
+  .resume-inbox {
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 680px;
+    max-width: 680px;
+
+    > div {
+      width: 100%;
+      max-width: 100%;
+    }
+
+    .resume-title {
+      p {
+        font-size: 40px;
+        font-weight: bold;
+      }
+    }
+
+    .experience-title,
+    .education-title,
+    .skill-title {
+      p {
+        font-size: 28px;
+        font-weight: bold;
+        text-align: left;
+        margin-top: 80px;
+      }
+    }
+
+    .experience,
+    .education {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+    }
+
+    .resume-card {
+      display: inline-block;
+      box-shadow: -12px 12px 20px 0 rgba(0, 0, 0, 0.2);
+      background-color: $white-color;
+
+      .inblock {
+        margin: 30px;
+      }
+    }
+  }
+}

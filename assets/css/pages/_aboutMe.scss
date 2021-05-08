@@ -9,6 +9,7 @@
     width: 66%;
     height: $about-me-page-height;
     right: 0;
+    min-height: calc(100vh - 100px);
   }
 
   .message-block {
@@ -45,10 +46,6 @@
           width: 200px;
           position: absolute;
           text-align: center;
-
-          h1 {
-            margin: 0;
-          }
         }
 
         .about-me-line {
@@ -66,10 +63,6 @@
           left: calc(50% - 150px);
           width: 300px;
           text-align: center;
-
-          h3 {
-            margin: 0;
-          }
         }
       }
 
@@ -97,7 +90,10 @@
 
       .description-inblock {
         height: calc(#{$about-me-message-block-height} * 0.8);
-        padding: calc(#{$about-me-message-block-height} * 0.1);
+        padding-top: calc(#{$about-me-message-block-height} * 0.1);
+        padding-bottom: calc(#{$about-me-message-block-height} * 0.1);
+        padding-left: calc(#{$about-me-message-block-height} * 0.06);
+        padding-right: calc(#{$about-me-message-block-height} * 0.06);
         display: flex;
         text-align: left;
         flex-direction: column;
@@ -105,13 +101,11 @@
         .description-title {
           flex: 1;
           font-size: 3em;
-          margin: 0;
           line-height: calc(#{$about-me-message-block-height} * 0.8 / 5);
         }
 
         .description-content {
           flex: 2;
-          margin: 0;
         }
 
         .description-link {

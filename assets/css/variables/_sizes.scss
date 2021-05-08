@@ -1,7 +1,11 @@
 $menu-height: 100px;
 $max-web-width: 1280px;
 $content-min-height: calc(100vh - #{$menu-height});
-$about-me-message-block-width: 800px;
+
+$about-me-message-block-width: 720px;
 $about-me-message-block-height: 600px;
 $about-me-message-top: 100px;
 $about-me-page-height: calc(#{$about-me-message-top} * 2 + #{$about-me-message-block-height});
+
+$resume-page-block-width: 680px;
+$resume-page-block-height: 340px;

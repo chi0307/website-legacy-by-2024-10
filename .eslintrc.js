@@ -24,5 +24,6 @@ module.exports = {
         math: 'always',
       },
     ],
+    'vue/attribute-hyphenation': ['error', 'never', {}],
   },
 };

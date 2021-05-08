@@ -14,15 +14,15 @@
     top: 0;
     max-width: $max-web-width;
     justify-content: space-between;
+    padding-left: 30px;
+    padding-right: 30px;
 
     .title-block {
       position: relative;
       flex: 1;
-      margin: 0;
 
       .title {
         line-height: $menu-height;
-        margin: 0;
         text-align: left;
       }
     }

@@ -12,9 +12,12 @@
             <li
               v-for="(page, index) in pages"
               :key="index"
-              :class="{ 'menu-item': true, 'menu-click': $route.name === page.path }"
+              :class="{
+                'menu-item': true,
+                'menu-click': new RegExp(`^/?${page.path}/?`).test($route.path),
+              }"
             >
-              <router-link :to="page.path">
+              <router-link :to="`/${page.path}`">
                 {{ page.name }}
               </router-link>
             </li>
@@ -42,10 +45,6 @@ export default {
         {
           name: 'PROJECTS',
           path: 'projects',
-        },
-        {
-          name: 'CONTACT',
-          path: 'contact',
         },
       ],
     };
