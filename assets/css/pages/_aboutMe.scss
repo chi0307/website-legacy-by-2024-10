@@ -3,13 +3,23 @@
   position: relative;
   height: $about-me-page-height;
 
-  .right-block {
+  @include mobile {
+    height: $about-me-message-block-height * 2;
+  }
+
+  .white-block {
     background-color: $white-color;
     position: absolute;
     width: 66%;
     height: $about-me-page-height;
     right: 0;
     min-height: calc(100vh - 100px);
+
+    @include mobile {
+      width: 100%;
+      min-height: 300px;
+      height: 300px;
+    }
   }
 
   .message-block {
@@ -20,12 +30,25 @@
     left: calc(50% - #{$about-me-message-block-width}/ 2);
     display: flex;
 
+    @include mobile {
+      height: $about-me-message-block-height * 2;
+      width: calc(100vw - 40px);
+      padding-left: 20px;
+      padding-right: 20px;
+      left: unset;
+      flex-direction: column;
+      align-items: center;
+      top: 0;
+    }
+
     .present-block {
       flex: 1;
       background-color: $primary-color2;
       box-shadow: -10px 10px 18px 0 rgba(0, 0, 0, 0.2);
       display: flex;
       flex-direction: column;
+      height: $about-me-message-block-height;
+      width: $about-me-message-block-width / 2;
 
       .present-top-block {
         flex: 9;
@@ -87,6 +110,13 @@
 
     .description-block {
       flex: 1;
+      height: $about-me-message-block-height;
+      width: $about-me-message-block-width / 2;
+
+      @include mobile {
+        padding-left: 0;
+        padding-right: 0;
+      }
 
       .description-inblock {
         height: calc(#{$about-me-message-block-height} * 0.8);
@@ -97,6 +127,11 @@
         display: flex;
         text-align: left;
         flex-direction: column;
+
+        @include mobile {
+          padding-left: 0;
+          padding-right: 0;
+        }
 
         .description-title {
           flex: 1;
@@ -124,6 +159,10 @@
             border-width: 1px;
             border-radius: 40px;
             cursor: pointer;
+
+            @include mobile {
+              background-color: $primary-color1;
+            }
 
             &:hover {
               background-color: $complementary-color1;

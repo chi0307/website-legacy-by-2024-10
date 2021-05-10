@@ -1,6 +1,6 @@
 <template>
   <div class="about-me-page">
-    <div class="right-block" />
+    <div class="white-block" />
     <div class="message-block">
       <div class="present-block">
         <div class="present-top-block">

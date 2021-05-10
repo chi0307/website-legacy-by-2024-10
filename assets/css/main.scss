@@ -12,7 +12,12 @@
   width: 100%;
   background-color: $white-color;
 
-  @import 'menu';
+  &.hide-scroll {
+    max-height: calc(100vh - 100px);
+    overflow: hidden;
+  }
+
+  @import 'header';
 
   .content:not(.index-page) {
     @keyframes web-fade-in {
@@ -28,7 +33,7 @@
     }
 
     background-color: $primary-color1;
-    min-height: calc(100vh - #{$menu-height});
+    // min-height: calc(100vh - #{$menu-height});
     width: 100%;
     animation: web-fade-in; /*動畫名稱*/
     animation-duration: 0.4s; /*動畫持續時間*/

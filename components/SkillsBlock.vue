@@ -11,7 +11,7 @@
         </div>
         <div class="skills">
           <p v-for="(skill, skillIndex) in skillCategory.skills" :key="skillIndex" class="skill">
-            <FontAwesomeIcon :icon="['fas', 'angle-right']" />
+            <FontAwesomeIcon class="icon" :icon="['fas', 'angle-right']" />
             {{ skill }}
           </p>
         </div>
@@ -73,7 +73,7 @@ $block-width: $resume-page-block-width;
           margin-top: 10px;
           margin-bottom: 10px;
 
-          svg {
+          .icon {
             margin-right: 8px;
             color: $complementary-color1;
           }
