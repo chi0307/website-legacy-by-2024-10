@@ -38,7 +38,7 @@
       left: unset;
       flex-direction: column;
       align-items: center;
-      top: 0;
+      top: 20px;
     }
 
     .present-block {
@@ -49,6 +49,10 @@
       flex-direction: column;
       height: $about-me-message-block-height;
       width: $about-me-message-block-width / 2;
+
+      @include mobile {
+        max-width: calc(100vw - 60px);
+      }
 
       .present-top-block {
         flex: 9;
@@ -114,6 +118,7 @@
       width: $about-me-message-block-width / 2;
 
       @include mobile {
+        max-width: calc(100vw - 60px);
         padding-left: 0;
         padding-right: 0;
       }
