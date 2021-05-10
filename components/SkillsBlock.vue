@@ -41,12 +41,22 @@ $block-width: $resume-page-block-width;
   margin-top: 34px;
   margin-bottom: 34px;
 
+  @include mobile {
+    width: 90vw;
+  }
+
   .inblock {
     height: 100%;
     width: calc(#{$block-width} - 60px);
     display: flex;
     text-align: left;
     flex-direction: column;
+    margin: 30px;
+
+    @include mobile {
+      width: calc(90vw - 20px);
+      margin: 10px;
+    }
 
     .skill-category-block {
       display: flex;
@@ -72,6 +82,10 @@ $block-width: $resume-page-block-width;
           width: calc((#{$block-width} - 100px) / 2);
           margin-top: 10px;
           margin-bottom: 10px;
+
+          @include mobile {
+            width: calc((90vw - 60px) / 2);
+          }
 
           .icon {
             margin-right: 8px;

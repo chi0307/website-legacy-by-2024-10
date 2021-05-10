@@ -61,29 +61,62 @@ $block-width: $resume-page-block-width;
   margin-top: calc(#{$block-height} * 0.1);
   margin-bottom: calc(#{$block-height} * 0.1);
 
+  @include mobile {
+    width: 90vw;
+  }
+
   .inblock {
     height: calc(#{$block-height} - 60px);
     width: calc(#{$block-width} - 60px);
+    margin: 30px;
     display: flex;
     text-align: left;
+
+    @include mobile {
+      height: calc(#{$block-height} - 20px);
+      width: calc(90vw - 20px);
+      margin: 10px;
+      flex-direction: column;
+    }
 
     .left-content {
       flex: 3;
       position: relative;
       margin-left: 30px;
       margin-top: 30px;
+      display: flex;
+      flex-direction: column;
+
+      @include mobile {
+        flex: 2;
+        margin-top: 0;
+        margin-right: 30px;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: flex-start;
+      }
 
       .period-text {
         font-size: 24px;
         margin-top: 30px;
-        margin-bottom: 20px;
         color: $complementary-color1;
+
+        @include mobile {
+          margin-top: 20px;
+          width: calc(90vw - 80px);
+          height: 30px;
+        }
       }
 
       .title-text,
       .subtitle-text {
         font-size: 16px;
-        margin: 20px auto;
+        margin-top: 20px;
+
+        @include mobile {
+          margin: 0;
+        }
       }
 
       .subtitle-text {
@@ -95,6 +128,10 @@ $block-width: $resume-page-block-width;
       flex: 5;
       position: relative;
 
+      @include mobile {
+        border-top: $complementary-color1 solid 1px;
+      }
+
       .content-text {
         word-wrap: break-word;
         position: absolute;
@@ -105,6 +142,10 @@ $block-width: $resume-page-block-width;
         overflow-x: hidden;
         overflow-x: auto;
         width: calc(100% - 40px);
+
+        @include mobile {
+          margin: 20px 30px 0 30px;
+        }
 
         p {
           margin-bottom: 6px;
