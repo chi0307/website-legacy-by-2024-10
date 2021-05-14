@@ -63,6 +63,11 @@ $block-width: $resume-page-block-width;
       flex-direction: column;
       margin: 20px 20px 30px 20px;
 
+      @include mobile {
+        margin-left: 10px;
+        margin-right: 10px;
+      }
+
       &:last-child {
         margin-bottom: 20px;
       }
@@ -84,12 +89,16 @@ $block-width: $resume-page-block-width;
           margin-bottom: 10px;
 
           @include mobile {
-            width: calc((90vw - 60px) / 2);
+            width: calc((90vw - 40px) / 2);
           }
 
           .icon {
             margin-right: 8px;
             color: $complementary-color1;
+
+            @include mobile {
+              margin-right: 4px;
+            }
           }
         }
       }
