@@ -84,9 +84,16 @@
           line-height: $menu-height;
           margin: 0 10px;
           cursor: pointer;
+          border-top: $white-color 1px solid;
 
           &:hover {
             color: $complementary-color1;
+          }
+
+          @include mobile {
+            &:last-child {
+              border-bottom: $white-color 1px solid;
+            }
           }
         }
 

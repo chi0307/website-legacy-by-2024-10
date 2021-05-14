@@ -90,7 +90,8 @@ $block-width: $resume-page-block-width;
       @include mobile {
         flex: 2;
         margin-top: 0;
-        margin-right: 30px;
+        margin-left: 20px;
+        margin-right: 20px;
         flex-direction: row;
         flex-wrap: wrap;
         justify-content: space-between;
