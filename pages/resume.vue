@@ -173,7 +173,7 @@ export default {
   },
   methods: {
     downloadCV() {
-      window.open('./cv.pdf', '__blank');
+      window.open('/cv.pdf', '__blank');
     },
   },
 };
