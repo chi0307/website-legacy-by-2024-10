@@ -30,11 +30,32 @@
     .experience-title,
     .education-title,
     .skill-title {
+      margin-top: 80px;
+      display: flex;
+      justify-content: space-between;
+
       p {
         font-size: 28px;
         font-weight: bold;
         text-align: left;
-        margin-top: 80px;
+      }
+
+      .cv {
+        background-color: $complementary-color1;
+        border: $complementary-color1 2px solid;
+        color: $white-color;
+        width: 120px;
+        height: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50px;
+        cursor: pointer;
+
+        &:hover {
+          background-color: $primary-color1;
+          color: $black-color;
+        }
       }
 
       @include mobile {

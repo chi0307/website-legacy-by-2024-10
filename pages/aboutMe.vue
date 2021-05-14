@@ -53,7 +53,7 @@ export default {
         { icon: ['fab', 'bitbucket'], url: 'https://bitbucket.org/junchi_0307' },
       ],
       descriptionTitle: 'Hello',
-      descriptionContent: 'This is my personal website.',
+      descriptionContent: '這是我的個人網站，目前仍緩慢更新中。',
     };
   },
 };

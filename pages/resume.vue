@@ -10,6 +10,9 @@
         <p>
           Experience
         </p>
+        <div class="cv" @click="downloadCV()">
+          履歷表
+        </div>
       </div>
       <div class="experience">
         <ResumeBlock
@@ -66,7 +69,7 @@ export default {
                 依照客戶需求進行系統串接，
                 同時用 Express.js 開發 ChatBot，
                 任職期間協助部門進行 Socket 系統重構，
-                並且協助導入 Babel 編譯，
+                並且協助導入編譯、 log 記錄，
                 與設計專案範本供部門使用。
               `,
             },
@@ -157,10 +160,21 @@ export default {
         },
         {
           title: '設計',
-          skills: ['Adobe Photoshop', 'Adobe Illustrator', 'Figma'],
+          skills: [
+            'Adobe Photoshop',
+            'Adobe Illustrator',
+            'Adobe InDesign',
+            'Adobe After Effects',
+            'Figma',
+          ],
         },
       ],
     };
+  },
+  methods: {
+    downloadCV() {
+      window.open('./cv.pdf', '__blank');
+    },
   },
 };
 </script>
