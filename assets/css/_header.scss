@@ -13,7 +13,7 @@
     display: none;
 
     @include mobile {
-      display: unset;
+      display: block;
       height: 40px;
       width: 40px;
       color: $black-color;
