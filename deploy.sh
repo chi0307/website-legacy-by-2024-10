@@ -1,11 +1,10 @@
 yarn
 yarn lint
-yarn build
 yarn generate
 
-cd ../website-static
+cd ../chi0307.github.io
 rm -rf *.* */
-cp -rf ../website/dist/* .
+cp -r ../website/dist/* .
 
 git add .
 if [ $1 != '' ]
