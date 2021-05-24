@@ -1,4 +1,8 @@
 <template>
   <div />
 </template>
-<script></script>
+<script>
+export default {
+  layout: 'website',
+};
+</script>

@@ -3,6 +3,7 @@
 </template>
 <script>
 export default {
+  layout: 'website',
   created() {
     this.$router.replace({ path: '/aboutMe' });
   },

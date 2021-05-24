@@ -55,6 +55,7 @@
 
 <script>
 export default {
+  layout: 'website',
   data() {
     return {
       experienceList: [
