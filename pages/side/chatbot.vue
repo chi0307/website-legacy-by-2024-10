@@ -947,6 +947,18 @@ export default {
       overflow-y: scroll;
       width: calc(100% - 8px);
       resize: none;
+      /* Track */
+      &::-webkit-scrollbar-track {
+        background: #fff;
+      }
+      /* Handle */
+      &::-webkit-scrollbar-thumb {
+        background: #f4ece6;
+      }
+      /* Handle on hover */
+      &::-webkit-scrollbar-thumb:hover {
+        background: #e6dacd;
+      }
     }
   }
 }
