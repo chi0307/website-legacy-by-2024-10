@@ -470,7 +470,7 @@ export default {
         },
         {
           key: 'text',
-          value: 'Plain Text',
+          value: '匯入 Messages',
         },
       ],
       cacheMessages: false,
@@ -690,13 +690,17 @@ export default {
     },
     // 把輸入的 json 加上 collapseOpen key
     makeUpMessageKey(obj) {
+      const defaultCollapseOpen = true;
       obj = obj.map((item) => {
         if (item.type === 'carousel') {
-          item.columns = item.columns.map((column) => ({ ...column, collapseOpen: false }));
+          item.columns = item.columns.map((column) => ({
+            ...column,
+            collapseOpen: defaultCollapseOpen,
+          }));
         }
         return {
           ...item,
-          collapseOpen: false,
+          collapseOpen: defaultCollapseOpen,
         };
       });
       return obj;
@@ -709,6 +713,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+$primary-color1: #e6dacd;
+$primary-color2: #f4ece6;
+$white-color: #fcfbfa;
+$warning-color: #ff0000;
+
 [draggable='true'] {
   user-select: none;
 }
@@ -719,26 +728,26 @@ export default {
 }
 /* Track */
 ::-webkit-scrollbar-track {
-  background: #f4ece6;
+  background: $primary-color2;
 }
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #fff;
+  background: $white-color;
 }
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #e6dacd;
+  background: $primary-color1;
 }
 
 .warning-border {
-  border-color: red !important;
+  border-color: $warning-color !important;
 }
 
 .all-view {
   padding: 20px;
   display: flex;
   height: calc(100vh - 40px);
-  background-color: #f4ece6;
+  background-color: $primary-color2;
 
   .select-view {
     flex: 2;
@@ -749,13 +758,13 @@ export default {
       flex: 7;
       overflow-y: scroll;
       margin-bottom: 10px;
-      border: #e6dacd 2px solid;
+      border: $primary-color1 2px solid;
 
       .item {
         margin: 15px;
         height: 40px;
-        background-color: white;
-        border: #e6dacd 2px solid;
+        background-color: $white-color;
+        border: $primary-color1 2px solid;
         border-radius: 20px;
         cursor: pointer;
         line-height: 40px;
@@ -767,13 +776,13 @@ export default {
     .action-list {
       flex: 3;
       overflow-y: scroll;
-      border: #e6dacd 2px solid;
+      border: $primary-color1 2px solid;
 
       .item {
         margin: 15px;
         height: 40px;
-        background-color: white;
-        border: #e6dacd 2px solid;
+        background-color: $white-color;
+        border: $primary-color1 2px solid;
         border-radius: 20px;
         cursor: move;
         line-height: 40px;
@@ -796,8 +805,8 @@ export default {
         min-height: 100%;
 
         .item {
-          background-color: white;
-          border: #e6dacd 2px solid;
+          background-color: $white-color;
+          border: $primary-color1 2px solid;
 
           &:not(:last-child) {
             margin-bottom: 5px;
@@ -814,7 +823,7 @@ export default {
             }
 
             .title {
-              background-color: #e6dacd;
+              background-color: $primary-color1;
               line-height: 40px;
               text-align: center;
               width: calc(100% - 50px);
@@ -833,14 +842,14 @@ export default {
               cursor: pointer;
 
               &:hover {
-                background-color: #cc5050;
+                background-color: $warning-color;
               }
 
               svg {
                 margin: 5px;
                 height: 30px;
                 width: 30px;
-                color: white;
+                color: $white-color;
               }
             }
           }
@@ -886,8 +895,8 @@ export default {
         .button {
           line-height: 40px;
           text-align: center;
-          background-color: #fff;
-          border: #e6dacd 2px solid;
+          background-color: $white-color;
+          border: $primary-color1 2px solid;
           border-radius: 40px;
           cursor: pointer;
         }
@@ -895,15 +904,15 @@ export default {
 
       .npm-transform-chatbot-message-kit-button {
         line-height: 36px;
-        background-color: #fff;
-        border: #e6dacd 2px solid;
+        background-color: $white-color;
+        border: $primary-color1 2px solid;
         border-radius: 20px;
         cursor: pointer;
         margin-left: 10px;
         margin-right: 10px;
 
         &:hover {
-          background-color: #e6dacd;
+          background-color: $primary-color1;
         }
       }
     }
@@ -912,26 +921,26 @@ export default {
       margin-top: 10px;
       width: 100%;
       height: 30px;
-      border: #e6dacd 2px solid;
+      border: $primary-color1 2px solid;
     }
 
     .json-view {
       margin-top: 10px;
       height: calc(100% - 110px);
-      border: #e6dacd 2px solid;
-      background-color: white;
+      border: $primary-color1 2px solid;
+      background-color: $white-color;
       overflow-y: scroll;
       /* Track */
       &::-webkit-scrollbar-track {
-        background: #fff;
+        background: $white-color;
       }
       /* Handle */
       &::-webkit-scrollbar-thumb {
-        background: #f4ece6;
+        background: $primary-color2;
       }
       /* Handle on hover */
       &::-webkit-scrollbar-thumb:hover {
-        background: #e6dacd;
+        background: $primary-color1;
       }
 
       .jv-code {
@@ -942,22 +951,22 @@ export default {
     .text-view {
       margin-top: 10px;
       height: calc(100% - 108px);
-      border: #e6dacd 2px solid;
-      background-color: white;
+      border: $primary-color1 2px solid;
+      background-color: $white-color;
       overflow-y: scroll;
       width: calc(100% - 8px);
       resize: none;
       /* Track */
       &::-webkit-scrollbar-track {
-        background: #fff;
+        background: $white-color;
       }
       /* Handle */
       &::-webkit-scrollbar-thumb {
-        background: #f4ece6;
+        background: $primary-color2;
       }
       /* Handle on hover */
       &::-webkit-scrollbar-thumb:hover {
-        background: #e6dacd;
+        background: $primary-color1;
       }
     }
   }
@@ -974,7 +983,7 @@ export default {
     flex: 1;
     line-height: 40px;
     text-align: center;
-    background-color: #e6dacd;
+    background-color: $primary-color1;
     cursor: default;
     overflow: hidden;
 
@@ -985,43 +994,43 @@ export default {
 
   .input-content {
     flex: 4;
-    border-color: #e6dacd;
+    border-color: $primary-color1;
     border-style: solid;
   }
 
   .input-content-action {
     flex: 2;
-    border-color: #e6dacd;
+    border-color: $primary-color1;
     border-style: solid;
     border-right: 0px;
   }
 
   .input-content-action-delete {
     background-color: #bfcbd9;
-    border: #e6dacd 2px solid;
+    border: $primary-color1 2px solid;
     height: 36px;
     width: 36px;
     cursor: pointer;
 
     &:hover {
-      background-color: #cc5050;
+      background-color: $warning-color;
     }
 
     svg {
       margin: 5px;
       height: 30px;
       width: 30px;
-      color: white;
+      color: $white-color;
     }
   }
 
   .add-template-button {
     cursor: pointer;
-    border: #e6dacd 2px solid;
-    background-color: #fff;
+    border: $primary-color1 2px solid;
+    background-color: $white-color;
 
     &:hover {
-      background-color: #e6dacd;
+      background-color: $primary-color1;
     }
   }
 
