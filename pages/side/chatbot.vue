@@ -757,7 +757,7 @@ export default {
         background-color: white;
         border: #e6dacd 2px solid;
         border-radius: 20px;
-        cursor: move;
+        cursor: pointer;
         line-height: 40px;
         text-align: center;
         overflow: hidden;
@@ -775,7 +775,7 @@ export default {
         background-color: white;
         border: #e6dacd 2px solid;
         border-radius: 20px;
-        cursor: pointer;
+        cursor: move;
         line-height: 40px;
         text-align: center;
         overflow: hidden;
@@ -818,7 +818,7 @@ export default {
               line-height: 40px;
               text-align: center;
               width: calc(100% - 50px);
-              cursor: default;
+              cursor: pointer;
               position: relative;
               padding-left: 40px;
               padding-right: 40px;
@@ -1015,6 +1015,7 @@ export default {
 
   .input-description-title {
     position: relative;
+    cursor: pointer;
   }
 }
 
