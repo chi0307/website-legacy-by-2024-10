@@ -13,7 +13,7 @@ module.exports = {
   rules: {
     'import/no-unresolved': 'off',
     'vue/html-self-closing': [
-      'error',
+      1,
       {
         html: {
           void: 'always',
@@ -25,5 +25,6 @@ module.exports = {
       },
     ],
     'vue/attribute-hyphenation': ['error', 'never', {}],
+    'no-param-reassign': [0, { props: false }],
   },
 };

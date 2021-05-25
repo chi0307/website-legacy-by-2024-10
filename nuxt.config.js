@@ -27,7 +27,12 @@ export default {
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: ['~/plugins/fontawesome.js'],
+  plugins: [
+    '~/plugins/toggle-button.js',
+    '~/plugins/fontawesome.js',
+    '~/plugins/modal.js',
+    '~/plugins/collapse.js',
+  ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
