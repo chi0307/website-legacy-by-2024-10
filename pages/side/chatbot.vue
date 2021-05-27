@@ -212,7 +212,7 @@
                           v-model="button.number"
                           type="text"
                           class="input-content-action"
-                          placeholder="+886-0912-345-678"
+                          placeholder="+886912345678"
                         />
                         <div
                           class="input-content-action-delete"
@@ -357,7 +357,7 @@
                                   v-model="button.number"
                                   type="text"
                                   class="input-content-action"
-                                  placeholder="+886-0912-345-678"
+                                  placeholder="+886912345678"
                                 />
                                 <div
                                   class="input-content-action-delete"
@@ -372,7 +372,10 @@
                       </CollapseTransition>
                     </div>
                   </draggable>
-                  <div v-if="message.columns.length < 10" class="input-block">
+                  <div
+                    v-if="message.columns.length < 10"
+                    class="input-block add-template-button-block"
+                  >
                     <p class="input-description add-template-button" @click="addCarousel(index)">
                       新增模板
                     </p>
@@ -392,14 +395,9 @@
           </div>
         </div>
         <div class="button-block">
-          <toggle-button
-            v-model="cacheMessages"
-            color="#42b983"
-            :height="40"
-            :width="100"
-            :labels="{ checked: '保存', unchecked: '不保存' }"
-            :fontSize="14"
-          />
+          <div class="setting-button" @click="$modal.show('setting-modal')">
+            設定
+          </div>
         </div>
       </div>
       <select v-model="showPage" class="change-view">
@@ -410,19 +408,79 @@
       <JsonViewer
         v-if="['json', 'line-json', 'facebook-json'].includes(showPage)"
         class="json-view"
-        :value="renderJSON"
+        :value="renderTextView"
         :expandDepth="Infinity"
         :previewMode="true"
         copyable
       />
-      <div v-else-if="showPage === 'text'" class="text-view">
+      <div
+        v-else-if="['import-json', 'line-curl', 'facebook-curl'].includes(showPage)"
+        class="text-view"
+      >
+        <span class="copy-button-block">
+          <span :class="{ 'copy-button': true, copied: isCopied }" @click="copyTextArea()">
+            {{ isCopied ? 'copied!' : 'copy' }}
+          </span>
+        </span>
         <textarea
           class="textarea-input-box"
-          :value="JSON.stringify(renderJSON, null, 4)"
+          :value="renderTextView"
+          :disabled="['line-curl', 'facebook-curl'].includes(showPage)"
           @change="checkJsonAndReturnJson"
         />
       </div>
     </div>
+    <modal name="setting-modal" classes="setting-modal" height="auto">
+      <div class="list">
+        <div class="input-block">
+          <p class="input-description">
+            是否保存訊息
+          </p>
+          <toggle-button v-model="cacheMessages" class="toggle-button" color="#42b983" />
+          <p class="input-description input-description-small-font-size">
+            使用 curl --data-raw
+          </p>
+          <toggle-button v-model="useCurlDataRowOption" class="toggle-button" color="#42b983" />
+        </div>
+      </div>
+      <div class="list">
+        <div class="input-block">
+          <p class="input-description">
+            Line Token
+          </p>
+          <input v-model="lineToken" type="text" class="input-content" />
+        </div>
+      </div>
+      <div class="list">
+        <div class="input-block">
+          <p class="input-description">
+            Line User ID
+          </p>
+          <input v-model="lineUserID" type="text" class="input-content" />
+        </div>
+      </div>
+      <div class="list">
+        <div class="input-block">
+          <p class="input-description input-description-small-font-size">
+            Fb Access Token
+          </p>
+          <input v-model="facebookPageAccessToken" type="text" class="input-content" />
+        </div>
+      </div>
+      <div class="list">
+        <div class="input-block">
+          <p class="input-description input-description-small-font-size">
+            Fb sender PSID
+          </p>
+          <input v-model="facebookSenderPSID" type="text" class="input-content" />
+        </div>
+      </div>
+      <div class="list setting-annotation-block">
+        <p class="setting-annotation">
+          以上資料只會保留在瀏覽器 localStorage 給 curl 指令測試用
+        </p>
+      </div>
+    </modal>
   </div>
 </template>
 
@@ -470,11 +528,25 @@ export default {
           value: 'Facebook Messages',
         },
         {
-          key: 'text',
+          key: 'import-json',
           value: '匯入 Messages',
+        },
+        {
+          key: 'line-curl',
+          value: 'Line Curl 指令',
+        },
+        {
+          key: 'facebook-curl',
+          value: 'Facebook Curl 指令',
         },
       ],
       cacheMessages: false,
+      isCopied: false,
+      useCurlDataRowOption: false,
+      lineToken: '',
+      lineUserID: '',
+      facebookPageAccessToken: '',
+      facebookSenderPSID: '',
     };
   },
   computed: {
@@ -491,17 +563,36 @@ export default {
     transformToFacebook() {
       return transformToFacebookMessages(this.messages);
     },
-    renderJSON() {
-      let json;
+    renderTextView() {
+      let text;
       if (this.showPage === 'line-json') {
-        json = this.transformToLine;
+        text = this.transformToLine;
       } else if (this.showPage === 'facebook-json') {
-        json = this.transformToFacebook;
-      } else if (this.showPage === 'json' || this.showPage === 'text') {
+        text = this.transformToFacebook;
+      } else if (this.showPage === 'json') {
         const newMessages = JSON.parse(JSON.stringify(this.messages));
-        json = this.clearMessagesKey(newMessages);
+        text = this.clearMessagesKey(newMessages);
+      } else if (this.showPage === 'import-json') {
+        const newMessages = JSON.parse(JSON.stringify(this.messages));
+        text = JSON.stringify(this.clearMessagesKey(newMessages), null, 4);
+      } else if (this.showPage === 'line-curl') {
+        text = this.composeLineCurlCommand(this.transformToLine, this.useCurlDataRowOption);
+        if (this.lineToken) {
+          text = text.replaceAll('{{LINE_TOKEN}}', this.lineToken);
+        }
+        if (this.lineUserID) {
+          text = text.replaceAll('{{LINE_USER_ID}}', this.lineUserID);
+        }
+      } else if (this.showPage === 'facebook-curl') {
+        text = this.composeFacebookCurlCommand(this.transformToFacebook, this.useCurlDataRowOption);
+        if (this.facebookPageAccessToken) {
+          text = text.replaceAll('{{FB_PAGE_ACCESS_TOKEN}}', this.facebookPageAccessToken);
+        }
+        if (this.facebookSenderPSID) {
+          text = text.replaceAll('{{FB_SENDER_PSID}}', this.facebookSenderPSID);
+        }
       }
-      return json;
+      return text;
     },
   },
   watch: {
@@ -525,6 +616,21 @@ export default {
       } else {
         this.storage({ messages: [] });
       }
+    },
+    lineToken(value) {
+      this.storage({ lineToken: value });
+    },
+    lineUserID(value) {
+      this.storage({ lineUserID: value });
+    },
+    facebookPageAccessToken(value) {
+      this.storage({ facebookPageAccessToken: value });
+    },
+    facebookSenderPSID(value) {
+      this.storage({ facebookSenderPSID: value });
+    },
+    useCurlDataRowOption(value) {
+      this.storage({ useCurlDataRowOption: value });
     },
   },
   created() {
@@ -709,6 +815,74 @@ export default {
     openNPMKit() {
       window.open('https://www.npmjs.com/package/@chi0307/transform-chatbot-message', '_blank');
     },
+    copyToClipboard(selectors) {
+      const str = document.querySelector(selectors).value;
+      const el = document.createElement('textarea');
+      el.value = str;
+      document.body.appendChild(el);
+      el.select();
+      document.execCommand('copy');
+      document.body.removeChild(el);
+    },
+    copyTextArea() {
+      this.isCopied = true;
+      setTimeout(() => {
+        this.isCopied = false;
+      }, 2000);
+      this.copyToClipboard('.textarea-input-box');
+    },
+    // 組合出 line curl 發訊息的指令
+    composeLineCurlCommand(lineMessages, useCurlDataRowOption) {
+      let returnText = "curl -X POST 'https://api.line.me/v2/bot/message/push' \\\n";
+      returnText += "--header 'Authorization: Bearer {{LINE_TOKEN}}' \\\n";
+      returnText += "--header 'Content-Type: application/json' \\\n";
+
+      const messagesJSON = {
+        to: '{{LINE_USER_ID}}',
+        messages: lineMessages,
+      };
+
+      if (useCurlDataRowOption) {
+        const messageString = JSON.stringify(messagesJSON, null, 2);
+        returnText += `--data-raw '\n${messageString}'`;
+      } else {
+        const messageString = JSON.stringify(messagesJSON);
+        returnText += `--data '${messageString}'`;
+      }
+
+      return returnText;
+    },
+    // 組合出 facebook curl 發訊息的指令
+    composeFacebookCurlCommand(facebookMessages, useCurlDataRowOption) {
+      let returnText = '';
+
+      facebookMessages.forEach((facebookMessage, index) => {
+        returnText +=
+          "curl -X POST 'https://graph.facebook.com/v2.6/me/messages?access_token={{FB_PAGE_ACCESS_TOKEN}}' \\\n";
+        returnText += "--header 'Content-Type: application/json' \\\n";
+
+        const messageJSON = {
+          recipient: {
+            id: '{{FB_SENDER_PSID}}',
+          },
+          message: facebookMessage,
+        };
+
+        if (useCurlDataRowOption) {
+          const messageString = JSON.stringify(messageJSON, null, 2);
+          returnText += `--data-raw '\n${messageString}'`;
+        } else {
+          const messageString = JSON.stringify(messageJSON);
+          returnText += `--data '${messageString}'`;
+        }
+
+        if (index + 1 !== facebookMessages.length) {
+          returnText += ' &&\n\n';
+        }
+      });
+
+      return returnText;
+    },
   },
 };
 </script>
@@ -745,6 +919,8 @@ $warning-color: #ff0000;
 }
 
 .all-view {
+  min-width: 1200px;
+  min-height: 550px;
   padding: 20px;
   display: flex;
   height: calc(100vh - 40px);
@@ -804,7 +980,9 @@ $warning-color: #ff0000;
       overflow-y: scroll;
 
       .list-group {
-        min-height: 100%;
+        .carousel-column {
+          margin-top: 10px;
+        }
 
         .item {
           background-color: $white-color;
@@ -890,31 +1068,21 @@ $warning-color: #ff0000;
       .button-block {
         flex: 1;
         height: 40px;
-        margin-left: 20px;
-        margin-right: 20px;
         text-align: center;
 
-        .button {
-          line-height: 40px;
-          text-align: center;
+        .npm-transform-chatbot-message-kit-button,
+        .setting-button {
+          line-height: 36px;
           background-color: $white-color;
           border: $primary-color1 2px solid;
-          border-radius: 40px;
+          border-radius: 20px;
           cursor: pointer;
-        }
-      }
+          max-width: 120px;
+          margin: auto;
 
-      .npm-transform-chatbot-message-kit-button {
-        line-height: 36px;
-        background-color: $white-color;
-        border: $primary-color1 2px solid;
-        border-radius: 20px;
-        cursor: pointer;
-        margin-left: 10px;
-        margin-right: 10px;
-
-        &:hover {
-          background-color: $primary-color1;
+          &:hover {
+            background-color: $primary-color1;
+          }
         }
       }
     }
@@ -954,6 +1122,27 @@ $warning-color: #ff0000;
       margin-top: 10px;
       height: calc(100% - 100px);
       width: 100%;
+      position: relative;
+      font-family: Consolas, Menlo, Courier, monospace;
+      font-size: 14px;
+
+      .copy-button-block {
+        position: absolute;
+        right: 20px;
+
+        .copy-button {
+          cursor: pointer;
+          display: inline-block;
+          padding: 7px;
+          z-index: 5;
+          color: #49b3ff;
+        }
+
+        .copied {
+          opacity: 0.4;
+          cursor: default;
+        }
+      }
 
       .textarea-input-box {
         height: calc(100% - 64px);
@@ -963,6 +1152,7 @@ $warning-color: #ff0000;
         background-color: $white-color;
         overflow-y: scroll;
         resize: none;
+        word-break: break-all;
 
         /* Track */
         &::-webkit-scrollbar-track {
@@ -983,7 +1173,6 @@ $warning-color: #ff0000;
 
 .input-block {
   height: 40px;
-  margin-top: 10px;
   margin-bottom: 10px;
   width: 100%;
   display: flex;
@@ -1034,6 +1223,15 @@ $warning-color: #ff0000;
     }
   }
 
+  .input-description-title {
+    position: relative;
+    cursor: pointer;
+  }
+}
+
+.add-template-button-block {
+  margin-top: 10px;
+
   .add-template-button {
     cursor: pointer;
     border: $primary-color1 2px solid;
@@ -1042,11 +1240,6 @@ $warning-color: #ff0000;
     &:hover {
       background-color: $primary-color1;
     }
-  }
-
-  .input-description-title {
-    position: relative;
-    cursor: pointer;
   }
 }
 
@@ -1064,11 +1257,33 @@ $warning-color: #ff0000;
   padding: 20px;
 
   .list {
-    flex: 1;
-    height: 40px;
+    height: 50px;
 
     &:not(:last-child) {
       margin-bottom: 10px;
+    }
+  }
+
+  .input-description-small-font-size {
+    font-size: 13px;
+  }
+
+  .toggle-button {
+    flex: 1;
+
+    .v-switch-core {
+      margin: auto;
+      top: 9px;
+    }
+  }
+
+  .setting-annotation-block {
+    height: 20px;
+
+    .setting-annotation {
+      line-height: 20px;
+      text-align: right;
+      font-size: 12px;
     }
   }
 }

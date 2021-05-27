@@ -26,5 +26,14 @@ module.exports = {
     ],
     'vue/attribute-hyphenation': ['error', 'never', {}],
     'no-param-reassign': [0, { props: false }],
+    'operator-linebreak': [
+      'error',
+      'after',
+      {
+        overrides: {
+          ':': 'before',
+        },
+      },
+    ],
   },
 };
