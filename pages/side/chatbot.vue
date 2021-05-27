@@ -415,12 +415,13 @@
         :previewMode="true"
         copyable
       />
-      <textarea
-        v-else-if="showPage === 'text'"
-        class="text-view"
-        :value="JSON.stringify(renderJSON, null, 4)"
-        @change="checkJsonAndReturnJson"
-      />
+      <div v-else-if="showPage === 'text'" class="text-view">
+        <textarea
+          class="textarea-input-box"
+          :value="JSON.stringify(renderJSON, null, 4)"
+          @change="checkJsonAndReturnJson"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -649,9 +650,9 @@ export default {
       const jsonText = event.target.value || event.srcElement.value || '[]';
       try {
         this.messages = this.makeUpMessageKey(JSON.parse(jsonText));
-        document.querySelector('.text-view').classList.remove('warning-border');
+        document.querySelector('.textarea-input-box').classList.remove('warning-border');
       } catch (e) {
-        document.querySelector('.text-view').classList.add('warning-border');
+        document.querySelector('.textarea-input-box').classList.add('warning-border');
       }
     },
     // 把資料儲存到 localStorage
@@ -799,7 +800,7 @@ $warning-color: #ff0000;
       margin-left: 30px;
       margin-right: 30px;
       padding-bottom: 10px;
-      height: calc(100vh - 40px);
+      height: calc(100vh - 50px);
       overflow-y: scroll;
 
       .list-group {
@@ -927,7 +928,7 @@ $warning-color: #ff0000;
 
     .json-view {
       margin-top: 10px;
-      height: calc(100% - 110px);
+      height: calc(100% - 100px);
       border: $primary-color1 2px solid;
       background-color: $white-color;
       overflow-y: scroll;
@@ -951,23 +952,30 @@ $warning-color: #ff0000;
 
     .text-view {
       margin-top: 10px;
-      height: calc(100% - 108px);
-      border: $primary-color1 2px solid;
-      background-color: $white-color;
-      overflow-y: scroll;
-      width: calc(100% - 8px);
-      resize: none;
-      /* Track */
-      &::-webkit-scrollbar-track {
-        background: $white-color;
-      }
-      /* Handle */
-      &::-webkit-scrollbar-thumb {
-        background: $primary-color2;
-      }
-      /* Handle on hover */
-      &::-webkit-scrollbar-thumb:hover {
-        background: $primary-color1;
+      height: calc(100% - 100px);
+      width: 100%;
+
+      .textarea-input-box {
+        height: calc(100% - 64px);
+        width: calc(100% - 44px);
+        padding: 30px 20px;
+        border: $primary-color1 2px solid;
+        background-color: $white-color;
+        overflow-y: scroll;
+        resize: none;
+
+        /* Track */
+        &::-webkit-scrollbar-track {
+          background: $white-color;
+        }
+        /* Handle */
+        &::-webkit-scrollbar-thumb {
+          background: $primary-color2;
+        }
+        /* Handle on hover */
+        &::-webkit-scrollbar-thumb:hover {
+          background: $primary-color1;
+        }
       }
     }
   }
