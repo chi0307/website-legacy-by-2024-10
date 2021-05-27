@@ -798,6 +798,7 @@ $warning-color: #ff0000;
     .compose-inblock {
       margin-left: 30px;
       margin-right: 30px;
+      padding-bottom: 10px;
       height: calc(100vh - 40px);
       overflow-y: scroll;
 
@@ -855,7 +856,7 @@ $warning-color: #ff0000;
           }
 
           .content-block {
-            margin: 0 10px 0 10px;
+            margin: 10px;
 
             .list-group {
               margin-left: 30px;
@@ -974,6 +975,7 @@ $warning-color: #ff0000;
 
 .input-block {
   height: 40px;
+  margin-top: 10px;
   margin-bottom: 10px;
   width: 100%;
   display: flex;
