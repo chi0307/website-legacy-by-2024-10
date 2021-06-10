@@ -1,16 +1,15 @@
+rm -rf dist
+
 yarn
 yarn lint
 yarn generate
 
-cd ../chi0307.github.io
-rm -rf *.* */
-cp -r ../website/dist/* .
+cd dist
 
-git add .
-if [ $1 != '' ]
-then
-  git commit -m $1
-else
-  git commit -m "$(date +'%Y/%m/%d-%T') new build"
-fi
-git push origin master
+git init
+git add -A
+git commit -m 'deploy'
+
+git push -f git@github.com:chi0307/chi0307.github.io.git master
+
+cd -
