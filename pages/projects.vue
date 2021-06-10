@@ -47,6 +47,15 @@ export default {
           previewImage: '/chatbot-preview.png',
           previewUrl: 'https://chi0307.github.io/chatbot',
         },
+        {
+          text: `
+            一個簡單的娛樂用 line bot<br />
+            嘗試串接 Google TTS、Google STT、Google Map<br />
+            部署在 heroku
+          `,
+          previewImage: '/linebot-preview.png',
+          previewUrl: 'https://line.me/R/ti/p/%40tyo2763z',
+        },
       ],
       previewUrl: '',
     };
