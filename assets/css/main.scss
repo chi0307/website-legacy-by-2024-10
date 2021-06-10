@@ -1,6 +1,10 @@
 @import 'variables';
 @import 'base';
 
+:root {
+  --real100vh: 100vh;
+}
+
 .container {
   margin: 0;
   min-height: $content-min-height;
@@ -13,7 +17,7 @@
   background-color: $white-color;
 
   &.hide-scroll {
-    max-height: calc(100vh - 100px);
+    max-height: calc(var(--real100vh) - 100px);
     overflow: hidden;
   }
 
@@ -33,7 +37,7 @@
     }
 
     background-color: $primary-color1;
-    min-height: calc(100vh - #{$menu-height});
+    min-height: calc(var(--real100vh) - #{$menu-height});
     width: 100%;
     animation: web-fade-in; /*動畫名稱*/
     animation-duration: 0.4s; /*動畫持續時間*/

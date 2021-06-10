@@ -67,6 +67,7 @@ export default {
   },
   created() {
     this.checkMobile();
+    this.check100vh();
   },
   methods: {
     jumpPage(path) {
@@ -80,6 +81,10 @@ export default {
       if (this.showMobileMenu && !this.isMobile) {
         this.showMobileMenu = false;
       }
+    },
+    check100vh() {
+      const value = `${window.innerHeight}px`;
+      document.documentElement.style.setProperty('--real100vh', value);
     },
   },
 };

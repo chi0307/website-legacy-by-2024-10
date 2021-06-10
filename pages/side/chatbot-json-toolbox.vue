@@ -923,7 +923,7 @@ $warning-color: #ff0000;
   min-height: 550px;
   padding: 20px;
   display: flex;
-  height: calc(100vh - 40px);
+  height: calc(var(--real100vh) - 40px);
   background-color: $primary-color2;
 
   .select-view {
@@ -976,7 +976,7 @@ $warning-color: #ff0000;
       margin-left: 30px;
       margin-right: 30px;
       padding-bottom: 10px;
-      height: calc(100vh - 50px);
+      height: calc(var(--real100vh) - 50px);
       overflow-y: scroll;
 
       .list-group {

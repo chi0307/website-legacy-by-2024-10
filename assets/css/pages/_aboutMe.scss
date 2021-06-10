@@ -4,7 +4,7 @@
   height: $about-me-page-height;
 
   @include mobile {
-    height: $about-me-message-block-height * 2;
+    height: calc(#{$about-me-message-block-height} * 2 + 20px);
   }
 
   .white-block {
@@ -13,7 +13,7 @@
     width: 66%;
     height: $about-me-page-height;
     right: 0;
-    min-height: calc(100vh - 100px);
+    min-height: calc(var(--real100vh) - 100px);
 
     @include mobile {
       width: 100%;

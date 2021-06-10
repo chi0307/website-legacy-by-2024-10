@@ -1,6 +1,6 @@
 $menu-height: 100px;
 $max-web-width: 1280px;
-$content-min-height: calc(100vh - #{$menu-height});
+$content-min-height: calc(var(--real100vh) - #{$menu-height});
 
 $about-me-message-block-width: 720px;
 $about-me-message-block-height: 600px;
