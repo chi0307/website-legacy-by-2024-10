@@ -34,7 +34,7 @@ export default {
             </a>
           `,
           previewImage: '/chatbot-preview.png',
-          previewUrl: '/side/chatbot',
+          previewUrl: '/side/chatbot-json-toolbox',
         },
       ],
       previewUrl: '',
