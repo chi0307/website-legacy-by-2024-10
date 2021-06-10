@@ -33,8 +33,19 @@ export default {
               搭配套件
             </a>
           `,
-          previewImage: '/chatbot-preview.png',
+          previewImage: '/chatbot-json-toolbox-preview.png',
           previewUrl: '/side/chatbot-json-toolbox',
+        },
+        {
+          text: `
+            簡單的一個
+            <a href="https://chi0307.github.io/chatbot" target="_blank">chatbot</a>
+            呈現畫面，<br />
+            嘗試用 PWA、Vue 3.0、TS 開發，<br />
+            目前僅用假資料，無串接後台。
+          `,
+          previewImage: '/chatbot-preview.png',
+          previewUrl: 'https://chi0307.github.io/chatbot',
         },
       ],
       previewUrl: '',
