@@ -566,9 +566,9 @@ export default {
     renderTextView() {
       let text;
       if (this.showPage === 'line-json') {
-        text = this.transformToLine;
+        text = JSON.parse(JSON.stringify(this.transformToLine));
       } else if (this.showPage === 'facebook-json') {
-        text = this.transformToFacebook;
+        text = JSON.parse(JSON.stringify(this.transformToFacebook));
       } else if (this.showPage === 'json') {
         const newMessages = JSON.parse(JSON.stringify(this.messages));
         text = this.clearMessagesKey(newMessages);
@@ -751,7 +751,7 @@ export default {
     cloneAction({ type }) {
       return this.addAction(type);
     },
-    // 輸入的 json 檢查是不是符合 json 格式，同時轉換成 json 型別
+    // 輸入的 string 檢查是不是符合 json 格式，同時轉換成 json 型別
     checkJsonAndReturnJson(event) {
       const jsonText = event.target.value || event.srcElement.value || '[]';
       try {

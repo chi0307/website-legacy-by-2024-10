@@ -47,7 +47,7 @@ export default {
     return {
       name: 'Benson',
       workPosition: 'FrontEnd Developer',
-      personalImage: '/aboutMe.JPG',
+      personalImage: '/aboutMe.jpeg',
       socials: [
         { icon: ['fab', 'instagram'], url: 'https://www.instagram.com/unni_0913' },
         { icon: ['fab', 'github'], url: 'https://github.com/chi0307' },

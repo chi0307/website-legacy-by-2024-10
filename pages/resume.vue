@@ -10,9 +10,6 @@
         <p>
           Experience
         </p>
-        <div class="cv" @click="downloadCV()">
-          履歷表
-        </div>
       </div>
       <div class="experience">
         <ResumeBlock

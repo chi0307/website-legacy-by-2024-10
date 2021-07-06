@@ -46,6 +46,7 @@ $block-height: $project-page-block-height;
   margin-bottom: 34px;
   background-color: $white-color;
   display: flex;
+  box-shadow: -12px 12px 20px 0 rgba(0, 0, 0, 0.2);
 
   @include mobile {
     width: 90vw;
