@@ -445,6 +445,15 @@
       </div>
       <div class="list">
         <div class="input-block">
+          <p class="input-description input-description-small-font-size">
+            Line 訊息使用 flex
+          </p>
+          <toggle-button v-model="useLineFlex" class="toggle-button" color="#42b983" />
+          <p class="empty-block" />
+        </div>
+      </div>
+      <div class="list">
+        <div class="input-block">
           <p class="input-description">
             Line Token
           </p>
@@ -529,7 +538,7 @@ export default {
         },
         {
           key: 'import-json',
-          value: '匯入 Messages',
+          value: '匯入共用 Messages',
         },
         {
           key: 'line-curl',
@@ -543,6 +552,7 @@ export default {
       cacheMessages: false,
       isCopied: false,
       useCurlDataRowOption: false,
+      useLineFlex: false,
       lineToken: '',
       lineUserID: '',
       facebookPageAccessToken: '',
@@ -558,7 +568,7 @@ export default {
       return typeObj;
     },
     transformToLine() {
-      return transformToLineMessages(this.messages);
+      return transformToLineMessages(this.messages, { flex: this.useLineFlex });
     },
     transformToFacebook() {
       return transformToFacebookMessages(this.messages);
@@ -631,6 +641,9 @@ export default {
     },
     useCurlDataRowOption(value) {
       this.storage({ useCurlDataRowOption: value });
+    },
+    useLineFlex(value) {
+      this.storage({ useLineFlex: value });
     },
   },
   created() {
@@ -1189,6 +1202,10 @@ $warning-color: #ff0000;
     &-action {
       cursor: move;
     }
+
+    &-small-font-size {
+      font-size: 13px;
+    }
   }
 
   .input-content {
@@ -1264,10 +1281,6 @@ $warning-color: #ff0000;
     }
   }
 
-  .input-description-small-font-size {
-    font-size: 13px;
-  }
-
   .toggle-button {
     flex: 1;
 
@@ -1275,6 +1288,10 @@ $warning-color: #ff0000;
       margin: auto;
       top: 9px;
     }
+  }
+
+  .empty-block {
+    flex: 2;
   }
 
   .setting-annotation-block {
