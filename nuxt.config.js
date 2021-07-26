@@ -32,6 +32,7 @@ export default {
     '~/plugins/fontawesome.js',
     '~/plugins/modal.js',
     '~/plugins/collapse.js',
+    '~/plugins/textarea-autosize.js',
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

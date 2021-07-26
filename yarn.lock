@@ -919,10 +919,10 @@
     "@babel/helper-validator-identifier" "^7.14.0"
     to-fast-properties "^2.0.0"
 
-"@chi0307/transform-chatbot-message@^1.1.1":
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/@chi0307/transform-chatbot-message/-/transform-chatbot-message-1.1.1.tgz#a4955b81eaa581ccbe9f7f654db397671271ad30"
-  integrity sha512-XT1+Gj9wfTnrU159YD+dtCul8h1rWAMue3+ohi4VlPi1jS4vr0EkAoeEKeH7gntKUjiNdwtilZPNj10KovtcGg==
+"@chi0307/transform-chatbot-message@^1.1.2":
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/@chi0307/transform-chatbot-message/-/transform-chatbot-message-1.1.2.tgz#31260b95cd1349b9de59fd143cec335ad85e4246"
+  integrity sha512-qtlCxpHPEC2tXAM14DgFwMSUk+z6OghgMS6WR5YQshrOep+q4zXeTwIp7CV/eVZNAaCu45pUtZsN0tyS6vGcsQ==
 
 "@csstools/convert-colors@^1.4.0":
   version "1.4.0"
@@ -8736,6 +8736,13 @@ vue-template-es2015-compiler@^1.9.0:
   version "1.9.1"
   resolved "https://registry.yarnpkg.com/vue-template-es2015-compiler/-/vue-template-es2015-compiler-1.9.1.tgz#1ee3bc9a16ecbf5118be334bb15f9c46f82f5825"
   integrity sha512-4gDntzrifFnCEvyoO8PqyJDmguXgVPxKiIxrBKjIowvL9l+N66196+72XVYR8BBf1Uv1Fgt3bGevJ+sEmxfZzw==
+
+vue-textarea-autosize@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/vue-textarea-autosize/-/vue-textarea-autosize-1.1.1.tgz#fcf1e1523c4eaebfdfeaaa5f5c5aeb92ca7c80f2"
+  integrity sha512-B33Mg5ZDEfj/whhoPBLg25qqAdGHGM2NjDT99Qi5MXRyeLmXb4C3s6EprAHqy3nU0cooWXFU+IekI5DpoEbnFg==
+  dependencies:
+    core-js "^2.6.5"
 
 vue@^2.6.12, vue@^2.6.9:
   version "2.6.12"

@@ -51,7 +51,7 @@
                     <p class="input-description">
                       訊息
                     </p>
-                    <input v-model="message.text" type="text" class="input-content" />
+                    <textarea-autosize v-model="message.text" class="input-content" />
                   </div>
                 </div>
                 <div v-else-if="message.type === 'image'">
@@ -59,9 +59,8 @@
                     <p class="input-description">
                       圖片 URL
                     </p>
-                    <input
+                    <textarea-autosize
                       v-model="message.imageUrl"
-                      type="text"
                       class="input-content"
                       placeholder="https://"
                     />
@@ -70,9 +69,8 @@
                     <p class="input-description">
                       預覽圖片 URL
                     </p>
-                    <input
+                    <textarea-autosize
                       v-model="message.previewImageUrl"
-                      type="text"
                       class="input-content"
                       placeholder="https://"
                     />
@@ -83,9 +81,8 @@
                     <p class="input-description">
                       影片 URL
                     </p>
-                    <input
+                    <textarea-autosize
                       v-model="message.videoUrl"
-                      type="text"
                       class="input-content"
                       placeholder="https://"
                     />
@@ -94,9 +91,8 @@
                     <p class="input-description">
                       預覽圖片 URL
                     </p>
-                    <input
+                    <textarea-autosize
                       v-model="message.previewImageUrl"
-                      type="text"
                       class="input-content"
                       placeholder="https://"
                     />
@@ -107,9 +103,8 @@
                     <p class="input-description">
                       音檔 URL
                     </p>
-                    <input
+                    <textarea-autosize
                       v-model="message.audioUrl"
-                      type="text"
                       class="input-content"
                       placeholder="https://"
                     />
@@ -126,9 +121,8 @@
                     <p class="input-description">
                       替代文字
                     </p>
-                    <input
+                    <textarea-autosize
                       v-model="message.altText"
-                      type="text"
                       class="input-content"
                       placeholder="line 訊息替代文字"
                     />
@@ -137,13 +131,17 @@
                     <p class="input-description">
                       標題
                     </p>
-                    <input v-model="message.title" type="text" class="input-content" />
+                    <textarea-autosize
+                      v-model="message.title"
+                      class="input-content"
+                      placeholder="(Optional)"
+                    />
                   </div>
                   <div class="input-block">
                     <p class="input-description">
                       內文
                     </p>
-                    <input v-model="message.text" type="text" class="input-content" />
+                    <textarea-autosize v-model="message.text" class="input-content" />
                   </div>
                   <draggable
                     class="list-group"
@@ -229,9 +227,8 @@
                     <p class="input-description">
                       替代文字
                     </p>
-                    <input
+                    <textarea-autosize
                       v-model="message.altText"
-                      type="text"
                       class="input-content"
                       placeholder="line 訊息替代文字"
                     />
@@ -271,23 +268,30 @@
                             <p class="input-description">
                               標題
                             </p>
-                            <input v-model="column.title" type="text" class="input-content" />
+                            <textarea-autosize
+                              v-model="column.title"
+                              class="input-content"
+                              placeholder="標題、內文二選一必填 (Optional)"
+                            />
                           </div>
                           <div class="input-block">
                             <p class="input-description">
                               內文
                             </p>
-                            <input v-model="column.text" type="text" class="input-content" />
+                            <textarea-autosize
+                              v-model="column.text"
+                              class="input-content"
+                              placeholder="標題、內文二選一必填 (Optional)"
+                            />
                           </div>
                           <div class="input-block">
                             <p class="input-description">
                               圖片 Url
                             </p>
-                            <input
+                            <textarea-autosize
                               v-model="column.imageUrl"
-                              type="text"
                               class="input-content"
-                              placeholder="https://"
+                              placeholder=" (Optional)，https://"
                             />
                           </div>
                           <draggable
@@ -1185,7 +1189,7 @@ $warning-color: #ff0000;
 }
 
 .input-block {
-  height: 40px;
+  min-height: 40px;
   margin-bottom: 10px;
   width: 100%;
   display: flex;
@@ -1193,7 +1197,9 @@ $warning-color: #ff0000;
 
   .input-description {
     flex: 1;
-    line-height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     text-align: center;
     background-color: $primary-color1;
     cursor: default;
@@ -1210,8 +1216,10 @@ $warning-color: #ff0000;
 
   .input-content {
     flex: 4;
+    min-height: 40px;
     border-color: $primary-color1;
     border-style: solid;
+    line-height: 25px;
   }
 
   .input-content-action {
@@ -1219,6 +1227,8 @@ $warning-color: #ff0000;
     border-color: $primary-color1;
     border-style: solid;
     border-right: 0px;
+    height: 34px;
+    line-height: 34px;
   }
 
   .input-content-action-delete {
