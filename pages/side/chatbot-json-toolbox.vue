@@ -907,6 +907,7 @@ export default {
 <style lang="scss" scoped>
 $primary-color1: #e6dacd;
 $primary-color2: #f4ece6;
+$primary-color3: #b17c43;
 $white-color: #fcfbfa;
 $warning-color: #ff0000;
 
@@ -1274,6 +1275,12 @@ $warning-color: #ff0000;
   height: 40px;
 
   line-height: 40px;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline-color: $primary-color3;
 }
 </style>
 
