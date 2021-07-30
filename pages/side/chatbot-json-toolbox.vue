@@ -410,7 +410,7 @@
         </option>
       </select>
       <JsonViewer
-        v-if="['json', 'line-json', 'facebook-json'].includes(showPage)"
+        v-if="['json', 'line-json', 'facebook-json', 'slack-json'].includes(showPage)"
         class="json-view"
         :value="renderTextView"
         :expandDepth="Infinity"
@@ -418,7 +418,7 @@
         copyable
       />
       <div
-        v-else-if="['import-json', 'line-curl', 'facebook-curl'].includes(showPage)"
+        v-else-if="['import-json', 'line-curl', 'facebook-curl', 'slack-curl'].includes(showPage)"
         class="text-view"
       >
         <span class="copy-button-block">
@@ -429,12 +429,12 @@
         <textarea
           class="textarea-input-box"
           :value="renderTextView"
-          :disabled="['line-curl', 'facebook-curl'].includes(showPage)"
+          :disabled="['line-curl', 'facebook-curl', 'slack-curl'].includes(showPage)"
           @change="checkJsonAndReturnJson"
         />
       </div>
     </div>
-    <modal name="setting-modal" classes="setting-modal" height="auto">
+    <modal name="setting-modal" classes="setting-modal" height="auto" width="700px">
       <div class="list">
         <div class="input-block">
           <p class="input-description">
@@ -488,6 +488,14 @@
           <input v-model="facebookSenderPSID" type="text" class="input-content" />
         </div>
       </div>
+      <div class="list">
+        <div class="input-block">
+          <p class="input-description input-description-small-font-size">
+            Slack Webhook URL
+          </p>
+          <input v-model="slackWebhookUrl" type="text" class="input-content" />
+        </div>
+      </div>
       <div class="list setting-annotation-block">
         <p class="setting-annotation">
           以上資料只會保留在瀏覽器 localStorage 給 curl 指令測試用
@@ -503,7 +511,9 @@ import JsonViewer from 'vue-json-viewer';
 import {
   transformToLineMessages,
   transformToFacebookMessages,
+  transformToSlackMessages,
 } from '@chi0307/transform-chatbot-message';
+import cloneDeep from 'clone-deep';
 
 export default {
   components: {
@@ -541,6 +551,10 @@ export default {
           value: 'Facebook Messages',
         },
         {
+          key: 'slack-json',
+          value: 'Slack Messages',
+        },
+        {
           key: 'import-json',
           value: '匯入共用 Messages',
         },
@@ -552,6 +566,10 @@ export default {
           key: 'facebook-curl',
           value: 'Facebook Curl 指令',
         },
+        {
+          key: 'slack-curl',
+          value: 'Slack Curl 指令',
+        },
       ],
       cacheMessages: false,
       isCopied: false,
@@ -561,6 +579,7 @@ export default {
       lineUserID: '',
       facebookPageAccessToken: '',
       facebookSenderPSID: '',
+      slackWebhookUrl: '',
     };
   },
   computed: {
@@ -577,20 +596,25 @@ export default {
     transformToFacebook() {
       return transformToFacebookMessages(this.messages);
     },
+    transformToSlack() {
+      return transformToSlackMessages(this.messages);
+    },
     renderTextView() {
       let text;
       if (this.showPage === 'line-json') {
-        text = JSON.parse(JSON.stringify(this.transformToLine));
+        text = cloneDeep(this.transformToLine);
       } else if (this.showPage === 'facebook-json') {
-        text = JSON.parse(JSON.stringify(this.transformToFacebook));
+        text = cloneDeep(this.transformToFacebook);
+      } else if (this.showPage === 'slack-json') {
+        text = cloneDeep(this.transformToSlack);
       } else if (this.showPage === 'json') {
-        const newMessages = JSON.parse(JSON.stringify(this.messages));
+        const newMessages = cloneDeep(this.messages);
         text = this.clearMessagesKey(newMessages);
       } else if (this.showPage === 'import-json') {
-        const newMessages = JSON.parse(JSON.stringify(this.messages));
+        const newMessages = cloneDeep(this.messages);
         text = JSON.stringify(this.clearMessagesKey(newMessages), null, 4);
       } else if (this.showPage === 'line-curl') {
-        text = this.composeLineCurlCommand(this.transformToLine, this.useCurlDataRowOption);
+        text = this.composeLineCurlCommand(this.transformToLine);
         if (this.lineToken) {
           text = text.replaceAll('{{LINE_TOKEN}}', this.lineToken);
         }
@@ -598,12 +622,17 @@ export default {
           text = text.replaceAll('{{LINE_USER_ID}}', this.lineUserID);
         }
       } else if (this.showPage === 'facebook-curl') {
-        text = this.composeFacebookCurlCommand(this.transformToFacebook, this.useCurlDataRowOption);
+        text = this.composeFacebookCurlCommand(this.transformToFacebook);
         if (this.facebookPageAccessToken) {
           text = text.replaceAll('{{FB_PAGE_ACCESS_TOKEN}}', this.facebookPageAccessToken);
         }
         if (this.facebookSenderPSID) {
           text = text.replaceAll('{{FB_SENDER_PSID}}', this.facebookSenderPSID);
+        }
+      } else if (this.showPage === 'slack-curl') {
+        text = this.composeSlackCurlCommand(this.transformToSlack);
+        if (this.slackWebhookUrl) {
+          text = text.replaceAll('{{SLACK_WEBHOOK_URL}}', this.slackWebhookUrl);
         }
       }
       return text;
@@ -642,6 +671,9 @@ export default {
     },
     facebookSenderPSID(value) {
       this.storage({ facebookSenderPSID: value });
+    },
+    slackWebhookUrl(value) {
+      this.storage({ slackWebhookUrl: value });
     },
     useCurlDataRowOption(value) {
       this.storage({ useCurlDataRowOption: value });
@@ -848,8 +880,19 @@ export default {
       }, 2000);
       this.copyToClipboard('.textarea-input-box');
     },
+    // 組合出 curl 的 data string 回傳
+    composeCurlData(messageJSON) {
+      let messageString;
+      if (this.useCurlDataRowOption) {
+        messageString = `--data-raw '\n${JSON.stringify(messageJSON, null, 2)}'`;
+      } else {
+        messageString = `--data '${(messageString = JSON.stringify(messageJSON))}'`;
+      }
+
+      return messageString;
+    },
     // 組合出 line curl 發訊息的指令
-    composeLineCurlCommand(lineMessages, useCurlDataRowOption) {
+    composeLineCurlCommand(lineMessages) {
       let returnText = "curl -X POST 'https://api.line.me/v2/bot/message/push' \\\n";
       returnText += "--header 'Authorization: Bearer {{LINE_TOKEN}}' \\\n";
       returnText += "--header 'Content-Type: application/json' \\\n";
@@ -858,19 +901,12 @@ export default {
         to: '{{LINE_USER_ID}}',
         messages: lineMessages,
       };
-
-      if (useCurlDataRowOption) {
-        const messageString = JSON.stringify(messagesJSON, null, 2);
-        returnText += `--data-raw '\n${messageString}'`;
-      } else {
-        const messageString = JSON.stringify(messagesJSON);
-        returnText += `--data '${messageString}'`;
-      }
+      returnText += this.composeCurlData(messagesJSON);
 
       return returnText;
     },
     // 組合出 facebook curl 發訊息的指令
-    composeFacebookCurlCommand(facebookMessages, useCurlDataRowOption) {
+    composeFacebookCurlCommand(facebookMessages) {
       let returnText = '';
 
       facebookMessages.forEach((facebookMessage, index) => {
@@ -884,19 +920,24 @@ export default {
           },
           message: facebookMessage,
         };
-
-        if (useCurlDataRowOption) {
-          const messageString = JSON.stringify(messageJSON, null, 2);
-          returnText += `--data-raw '\n${messageString}'`;
-        } else {
-          const messageString = JSON.stringify(messageJSON);
-          returnText += `--data '${messageString}'`;
-        }
+        returnText += this.composeCurlData(messageJSON);
 
         if (index + 1 !== facebookMessages.length) {
           returnText += ' &&\n\n';
         }
       });
+
+      return returnText;
+    },
+    // 組合出 slack curl 發訊息的指令
+    composeSlackCurlCommand(slackMessages) {
+      let returnText = "curl -X POST '{{SLACK_WEBHOOK_URL}}' \\\n";
+      returnText += "--header 'Content-Type: application/json' \\\n";
+
+      const messagesJSON = {
+        blocks: slackMessages,
+      };
+      returnText += this.composeCurlData(messagesJSON);
 
       return returnText;
     },
