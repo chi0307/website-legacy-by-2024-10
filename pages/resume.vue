@@ -57,9 +57,20 @@ export default {
     return {
       experienceList: [
         {
+          companyName: '愛進化科技股份有限公司',
+          jobPosition: '全端工程師',
+          period: '2021/09 ~ ',
+          description: [
+            {
+              style: { 'margin-bottom': '20px' },
+              text: '開發個人化手機殼網頁',
+            },
+          ],
+        },
+        {
           companyName: '北祥科技服務股份有限公司',
           jobPosition: '軟體設計師',
-          period: '2020/05 ~ ',
+          period: '2020/05 ~ 2021/08',
           description: [
             {
               style: { 'line-height': 1.6 },
