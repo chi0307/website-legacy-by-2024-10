@@ -919,10 +919,10 @@
     "@babel/helper-validator-identifier" "^7.14.0"
     to-fast-properties "^2.0.0"
 
-"@chi0307/transform-chatbot-message@^1.2.0":
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/@chi0307/transform-chatbot-message/-/transform-chatbot-message-1.2.0.tgz#239d3427bbe1053c1e45b3ded352b517132e7c21"
-  integrity sha512-EkxYoCQ3fjlredEhdOzlLESH5hDEkbO8C2iwqchmo+0q+lxH2aSyt7Sn/3HDIlsxZlnwW4/EI2CYj0eIVbkVfA==
+"@chi0307/transform-chatbot-message@^1.2.1":
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/@chi0307/transform-chatbot-message/-/transform-chatbot-message-1.2.1.tgz#d7a18d3e16c1a7fb743199ae12282bf25d089a3f"
+  integrity sha512-0ldiomRPIhtqFxumWAUxdx8qMFl35HeRyu6BQUCfN3Ihdqfsd+Kd3C2pmqj57AmekYUYtOsBlHz7ipBt0yVGIg==
 
 "@csstools/convert-colors@^1.4.0":
   version "1.4.0"
